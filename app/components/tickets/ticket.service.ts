@@ -14,6 +14,21 @@ class TicketService {
     return response;
   }
 
+  async getFilteredTickets(page: number = 1, searchTerm: string) {
+    const response = await axios
+      .get(
+        `http://localhost/ticket/search/filtered?page=${page}&searchTerm=${searchTerm}`
+      )
+      .then((tickets) => {
+        return tickets.data;
+      })
+      .catch((error) => {
+        console.error("Error fetching filtered data", error);
+      });
+
+    return response;
+  }
+
   async getTicket(id: any) {
     const response = await axios
       .get(`http://localhost/ticket/${id}`)
