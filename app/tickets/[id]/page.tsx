@@ -1,29 +1,15 @@
 "use client";
 
-import { ticketService } from "@/app/components/tickets/ticket.service";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import TicketDetail from "@/app/components/tickets/ticketDetail";
 
-export default function TicketDetail({ params }: { params: { id: number } }) {
-  const [ticket, setTicket] = useState<any>();
-
-  // const id = params.get("id");
-
-  console.log({ params });
-
-  useEffect(() => {
-    ticketService.getTicket(params.id).then((ticket) => setTicket(ticket));
-  });
-
+export default function TicketDetailPage({
+  params,
+}: {
+  params: { id: number };
+}) {
   return (
-    <div>
-      {ticket ? (
-        <div>
-          <h1>{ticket.title}</h1>
-        </div>
-      ) : (
-        <h1>Loading...</h1>
-      )}
-    </div>
+    <main>
+      <TicketDetail id={params.id} />
+    </main>
   );
 }

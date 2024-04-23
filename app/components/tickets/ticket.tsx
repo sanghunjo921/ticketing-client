@@ -5,11 +5,15 @@ export default function Ticket(prop: any) {
     <div className="bg-white shadow-lg p-5 border-2 m-10 rounded-lg">
       <div className="">
         <div className="h-300">
-          {prop.ticket.image ? (
-            <img src={prop.ticket.image} className="w-full" alt="Ticket" />
+          {prop.ticket.imagePath ? (
+            <img
+              src={`http://localhost/${prop.ticket.imagePath}`}
+              className="w-full"
+              alt="Ticket"
+            />
           ) : (
             <img
-              src="./no-image/default.png"
+              src="http://localhost/images/default.png"
               className="w-full"
               style={{ height: "300px" }}
             />
