@@ -1,9 +1,9 @@
 import axios from "axios";
 
 class TicketService {
-  async getTickets() {
+  async getTickets(page: number = 1) {
     const response = await axios
-      .get("http://localhost/ticket")
+      .get(`http://localhost/ticket?page=${page}`)
       .then((tickets) => {
         return tickets.data;
       })
