@@ -15,9 +15,12 @@ class UserService {
     return response;
   }
 
-  async signin() {
+  async signin(email: string, password: string) {
     const response = await axios
-      .get(`http://localhost/signin/`)
+      .post(`http://localhost/signin/`, {
+        email: email,
+        password: password,
+      })
       .then((user) => {
         return user.data;
       })
@@ -30,4 +33,4 @@ class UserService {
   }
 }
 
-export const ticketService = new UserService();
+export const userService = new UserService();
