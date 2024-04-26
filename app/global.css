@@ -8,3 +8,9 @@
   text-overflow: ellipsis;
   max-width: calc(8ch + 3px); /* 5글자의 최대 너비 지정 */
 }
+
+@layer base {
+  a {
+    @apply text-orange-500;
+  }
+}
