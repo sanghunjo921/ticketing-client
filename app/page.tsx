@@ -13,7 +13,7 @@ export default function Page() {
           href={"/tickets"}
           className="w-full hover:bg-orange-600 bg-orange-400 text-white text-lg font-medium rounded-md text-center py-2"
         >
-          Start
+          시작하기
         </Link>
         <div className="flex gap-2">
           <span>이미 계정이 있나요?</span>
