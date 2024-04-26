@@ -15,6 +15,7 @@ export default function Tickets() {
   });
 
   const [tickets, setTickets] = useState<any[]>([]);
+  const [filteredTickets, setFilteredTickets] = useState<any[]>([]);
   const [page, setPages] = useState(1);
 
   useEffect(() => {
@@ -33,35 +34,44 @@ export default function Tickets() {
     if (inViewPort && isFilteredView) {
       console.log("filter");
       ticketService.getFilteredTickets(page, searchTerm).then((data) => {
-        setTickets([data]);
+        console.log({ data });
+        setFilteredTickets([...filteredTickets, ...data]);
         setPages(page + 1);
       });
     }
   }, [inViewPort, isFilteredView]);
 
-  console.log({ searchTerm, isFilteredView });
+  console.log({ searchTerm, isFilteredView, tickets, filteredTickets });
+
+  const targetList = !isFilteredView ? tickets : filteredTickets;
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-between ml-10 mt-10">
+      <form
+        className="flex flex-col items-center justify-between ml-10 mt-10"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (searchTerm.trim() !== "") {
+            setIsFilteredView(!isFilteredView);
+          }
+        }}
+      >
         <input
           type="text"
           placeholder="Search..."
           className="px-2 py-1 border border-gray-300 rounded-md"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              if (searchTerm.trim() !== "") {
-                setIsFilteredView(!isFilteredView);
-              }
+          onChange={(e) => {
+            if (e.target.value.length === 1) {
+              setFilteredTickets([]);
             }
+            setSearchTerm(e.target.value);
           }}
         />
         <div className="font-bold text-2xl mt-10">Concert</div>
-      </div>
+      </form>
       <div ref={ticketListRef} className="grid grid-cols-2 gap-4 ">
-        {tickets.map((ticket) => (
+        {targetList.map((ticket) => (
           <Ticket ticket={ticket} key={ticket.id} />
         ))}
         <button ref={ticketPageRef}>test</button>
