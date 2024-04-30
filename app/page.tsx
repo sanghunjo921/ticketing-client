@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-7">
+    <main className="flex flex-col items-center justify-center min-h-[calc(100vh-44px)] p-7">
       <section className="flex flex-col items-center gap-5 *:font-bold my-auto">
         <span className="text-9xl">👨🏿‍🏭</span>
         <h1 className=" text-4xl">Mega Traffic Tickets</h1>
@@ -13,7 +13,7 @@ export default function Page() {
           href={"/tickets"}
           className="w-full hover:bg-orange-600 bg-orange-400 text-white text-lg font-medium rounded-md text-center py-2"
         >
-          시작하기
+          로그인 없이 시작하기
         </Link>
         <div className="flex gap-2">
           <span>이미 계정이 있나요?</span>

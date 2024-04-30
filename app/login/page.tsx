@@ -1,20 +1,38 @@
 "use client";
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { userService } from "../components/users/user.service";
+
+interface UserData {
+  accessToken: string;
+  refreshToken: string;
+}
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isReady, setIsReady] = useState(false);
+  const [userData, setUserData] = useState<UserData>();
+
+  useEffect(() => {
+    if (!userData?.accessToken && !userData?.refreshToken) {
+      userService.checkSignIn(setUserData);
+    }
+    if (userData?.accessToken || userData?.refreshToken) {
+      // redirect("/tickets");
+    }
+    console.log(userData);
+  }, [userData]);
 
   useEffect(() => {
     if (isReady) {
-      const userData = userService.signin(email, password);
-      setIsReady(false);
-      setEmail("");
-      setPassword("");
+      userService.signin(email, password).then((userData) => {
+        setUserData(userData);
+        setEmail("");
+        setPassword("");
+      });
     }
   }, [isReady]);
 
@@ -40,17 +58,20 @@ export default function LoginPage() {
           onSubmit={handleSubmit}
         >
           <input
+            className="ring focus:ring-red-500 focus:outline-none"
             type="text"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <span className="text-red-500 ">Invalid error</span>
         </form>
         <form
           className="w-full flex flex-col gap-2 *:py-2 *:rounded-md"
           onSubmit={handleSubmit}
         >
           <input
+            className="ring focus:ring-red-500 focus:outline-none"
             type="text"
             placeholder="Password"
             value={password}

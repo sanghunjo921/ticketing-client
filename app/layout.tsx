@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-neutral-200 dark:bg-neutral-800 dark:text-white text-black max-w-screen-sm mx-auto`}
+        className={`${inter.className} bg-neutral-200 dark:bg-neutral-800  text-black max-w-screen-sm mx-auto`}
       >
         <header>
           <nav className="ml-10 mt-5 flex gap-10">

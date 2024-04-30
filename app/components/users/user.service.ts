@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const userDataKey = "userData";
+
 class UserService {
   async signup() {
     const response = await axios
@@ -27,9 +29,20 @@ class UserService {
       .catch((error) => {
         console.log("Error retrieving user", error);
       });
+    if (response) {
+      localStorage.setItem(userDataKey, JSON.stringify(response));
+    }
 
-    console.log(response);
     return response;
+  }
+
+  checkSignIn(setuserData: any) {
+    const userData = JSON.parse(
+      localStorage.getItem(userDataKey) ||
+        JSON.stringify({ refreshToken: "", accessToekn: "" })
+    );
+
+    setuserData(userData);
   }
 }
 
