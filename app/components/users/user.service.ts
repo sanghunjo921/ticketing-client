@@ -3,9 +3,13 @@ import axios from "axios";
 const userDataKey = "userData";
 
 class UserService {
-  async signup() {
+  async signup(email: string, password: string, passwordConfirm: string) {
     const response = await axios
-      .get(`http://localhost/signup/`)
+      .post(`http://localhost/signup/`, {
+        email: email,
+        password: password,
+        passwordConfirm: passwordConfirm,
+      })
       .then((user) => {
         return user.data;
       })
@@ -13,7 +17,9 @@ class UserService {
         console.log("Error retrieving user", error);
       });
 
-    console.log(response);
+    if (response) {
+      localStorage.setItem(userDataKey, JSON.stringify(response));
+    }
     return response;
   }
 

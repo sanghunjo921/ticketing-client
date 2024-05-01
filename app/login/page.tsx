@@ -17,14 +17,13 @@ export default function LoginPage() {
   const [userData, setUserData] = useState<UserData>();
 
   useEffect(() => {
-    if (!userData?.accessToken && !userData?.refreshToken) {
-      userService.checkSignIn(setUserData);
-    }
+    // if (!userData?.accessToken && !userData?.refreshToken) {
+    //   userService.checkSignIn(setUserData);
+    // }
     if (userData?.accessToken || userData?.refreshToken) {
-      // redirect("/tickets");
+      redirect("/tickets");
     }
-    console.log(userData);
-  }, [userData]);
+  }, []);
 
   useEffect(() => {
     if (isReady) {
