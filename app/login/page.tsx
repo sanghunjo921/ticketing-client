@@ -23,7 +23,7 @@ export default function LoginPage() {
     if (userData?.accessToken || userData?.refreshToken) {
       redirect("/tickets");
     }
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     if (isReady) {

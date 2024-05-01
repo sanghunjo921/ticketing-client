@@ -7,12 +7,18 @@ import { ticketService } from "./ticket.service";
 export default function TicketDetail(prop: any) {
   const [ticket, setTicket] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [userId, setuserId] = useState("");
 
   useEffect(() => {
     ticketService.getTicket(prop.id).then((ticket) => {
       setTicket(ticket);
       setLoading(false);
     });
+
+    let storedUrl = localStorage.getItem("userData");
+    if (storedUrl) {
+      storedUrl = JSON.parse(storedUrl);
+    }
   }, []);
 
   return (
