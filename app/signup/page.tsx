@@ -21,7 +21,7 @@ export default function SignupPage() {
     if (userData?.accessToken || userData?.refreshToken) {
       redirect("/tickets");
     }
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     console.log(isReady);
