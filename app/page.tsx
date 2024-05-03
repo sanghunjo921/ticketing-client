@@ -11,7 +11,7 @@ export default function Page() {
       <section className="w-full flex flex-col items-center gap-3">
         <Link
           href={"/tickets"}
-          className="w-full hover:bg-orange-600 bg-orange-400 text-white text-lg font-medium rounded-md text-center py-2"
+          className="general-btn text-lg text-center py-2"
         >
           로그인 없이 시작하기
         </Link>

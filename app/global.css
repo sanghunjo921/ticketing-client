@@ -14,3 +14,9 @@
     @apply text-orange-500;
   }
 }
+
+@layer components {
+  .general-btn {
+    @apply w-full bg-orange-500 text-white rounded-md hover:bg-orange-400;
+  }
+}
