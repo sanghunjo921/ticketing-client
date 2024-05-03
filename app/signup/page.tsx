@@ -48,8 +48,8 @@ export default function SignupPage() {
         />
         <ButtonComponent text="Create Account" />
       </form>
-      <div />
-      <div className="w-full h-px bg-neutral-400">
+      <div className="w-full h-px bg-neutral-400" />
+      <div>
         <Link
           href=""
           className="general-btn flex h-10 items-center justify-center gap-2"
