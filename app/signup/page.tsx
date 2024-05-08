@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
@@ -5,6 +7,8 @@ import { userService } from "../components/users/user.service";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import InputComponent from "../components/input-components/input-components";
 import ButtonComponent from "../components/input-components/button-components";
+import { signupAction } from "./actions";
+import { useFormState } from "react-dom";
 
 interface UserData {
   accessToken: string;
@@ -12,11 +16,9 @@ interface UserData {
 }
 
 export default function SignupPage() {
-  const onSubmit = async (formData: FormData) => {
-    "use server";
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log({ formData }, formData.get("email"));
-  };
+  const [state, onSubmit] = useFormState(signupAction, {
+    errrors: [],
+  } as any);
 
   return (
     <section className="flex flex-col gap-10 px-6 py-9">
@@ -27,24 +29,24 @@ export default function SignupPage() {
       <form action={onSubmit} className="gap-3 flex flex-col">
         <InputComponent
           name="email"
-          type="text"
+          type="eamil"
           placeholder="Email"
           required
-          errors={[]}
+          errors={state.errors}
         />
         <InputComponent
           name="password"
           type="password"
           placeholder="Password"
           required
-          errors={[]}
+          errors={state.errors}
         />
         <InputComponent
           name="password2"
           type="password"
           placeholder="Password Confirmation"
           required
-          errors={[]}
+          errors={state.errors}
         />
         <ButtonComponent text="Create Account" />
       </form>

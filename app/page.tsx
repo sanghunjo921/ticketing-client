@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ButtonComponent from "./components/input-components/button-components";
 
 export default function Page() {
   return (
@@ -21,6 +22,9 @@ export default function Page() {
             로그인
           </Link>
         </div>
+        <Link href="/signup" className="hover:underline">
+          계정 만들기
+        </Link>
       </section>
     </main>
 
