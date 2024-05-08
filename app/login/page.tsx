@@ -41,11 +41,9 @@ export default function LoginPage() {
           required
           errors={[]}
         />
-        <ButtonComponent text="Create Account" />
+        <ButtonComponent text="Login" />
       </form>
-      <Link href="/signup">
-        <div className="w-full h-px bg-neutral-400" />
-      </Link>
+      <div className="w-full h-px bg-neutral-400" />
       <div>
         <Link
           href=""

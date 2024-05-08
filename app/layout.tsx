@@ -24,6 +24,7 @@ export default function RootLayout({
             <Link href="/">Home</Link>
             <Link href="/login">Login</Link>
             <Link href="/tickets">Tickets</Link>
+            <Link href="/signup">계정 만들기</Link>
           </nav>
         </header>
         {children}
