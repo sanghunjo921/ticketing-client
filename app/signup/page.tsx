@@ -7,7 +7,7 @@ import { userService } from "../components/users/user.service";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import InputComponent from "../components/input-components/input-components";
 import ButtonComponent from "../components/input-components/button-components";
-import { signupAction } from "./actions";
+import { signupAction, SignUpActionState } from "./actions";
 import { useFormState } from "react-dom";
 
 interface UserData {
@@ -16,9 +16,7 @@ interface UserData {
 }
 
 export default function SignupPage() {
-  const [state, onSubmit] = useFormState(signupAction, {
-    errrors: [],
-  } as any);
+  const [state, onSubmit] = useFormState(signupAction, null);
 
   return (
     <section className="flex flex-col gap-10 px-6 py-9">
@@ -32,21 +30,21 @@ export default function SignupPage() {
           type="eamil"
           placeholder="Email"
           required
-          errors={state.errors}
+          errors={state?.fieldErrors.email ?? []}
         />
         <InputComponent
           name="password"
           type="password"
           placeholder="Password"
           required
-          errors={state.errors}
+          errors={state?.fieldErrors.password ?? []}
         />
         <InputComponent
-          name="password2"
-          type="password"
+          name="confirmPassword"
+          type="confirmPassword"
           placeholder="Password Confirmation"
           required
-          errors={state.errors}
+          errors={state?.fieldErrors.confirmPassword ?? []}
         />
         <ButtonComponent text="Create Account" />
       </form>

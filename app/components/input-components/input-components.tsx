@@ -1,8 +1,7 @@
+import { InputHTMLAttributes } from "react";
+
 interface InputProps {
   name: string;
-  type: string;
-  placeholder: string;
-  required: boolean;
   errors?: string[];
 }
 
@@ -12,7 +11,7 @@ export default function InputComponent({
   placeholder,
   required,
   errors = [],
-}: InputProps) {
+}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="flex flex-col gap-2">
       <input
