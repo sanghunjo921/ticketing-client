@@ -22,9 +22,9 @@ export default function RootLayout({
         <header>
           <nav className="ml-10 mt-5 flex gap-10">
             <Link href="/">Home</Link>
-            <Link href="/login">Login</Link>
             <Link href="/tickets">Tickets</Link>
-            <Link href="/signup">계정 만들기</Link>
+            <Link href="/login">SignIn</Link>
+            <Link href="/signup">SignUp</Link>
           </nav>
         </header>
         {children}
