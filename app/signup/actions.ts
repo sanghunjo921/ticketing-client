@@ -1,6 +1,8 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { z } from "zod";
+import { userService } from "../components/users/user.service";
 
 export interface SignUpActionState {
   errors: [];
@@ -62,10 +64,14 @@ export const signupAction = async (
   await new Promise((resolve) => setTimeout(resolve, 3000));
   console.log({ submittedData }, submittedData.get("email"));
 
+  const email = submittedData.get("email")?.toString();
+  const password = submittedData.get("password")?.toString();
+  const confirmPassword = submittedData.get("confirmPassword")?.toString();
+
   const result = formSchema.safeParse({
-    email: submittedData.get("email"),
-    password: submittedData.get("password"),
-    confirmPassword: submittedData.get("confirmPassword"),
+    email,
+    password,
+    confirmPassword,
   });
 
   console.log(result.error);
@@ -73,6 +79,10 @@ export const signupAction = async (
   if (!result.success) {
     return result.error?.flatten() || ["Unknown error"];
   }
+
+  await userService.signup(email, password, confirmPassword);
+  //   const cookie = cookies();
+  //   console.log({ cookie: cookie.getAll() });
 
   return {
     formErrors: [],

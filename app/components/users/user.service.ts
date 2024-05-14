@@ -1,26 +1,28 @@
 import axios from "axios";
+import { cookies } from "next/headers";
 
 const userDataKey = "userData";
 
 class UserService {
-  async signup(email: string, password: string, passwordConfirm: string) {
-    const response = await axios
+  async signup(email?: string, password?: string, passwordConfirm?: string) {
+    const res = await axios
       .post(`http://localhost/signup/`, {
         email: email,
         password: password,
         passwordConfirm: passwordConfirm,
       })
-      .then((user) => {
-        return user.data;
-      })
+      .then((res) => res)
       .catch((error) => {
         console.log("Error retrieving user", error);
       });
 
-    if (response) {
-      localStorage.setItem(userDataKey, JSON.stringify(response));
+    if (res) {
+      // localStorage.setItem(userDataKey, JSON.stringify(response));
+      // const cookie = res.headers["set-cookie"] as string[];
+      const cookie = cookies();
+      console.log({ cookie: cookie.getAll() });
     }
-    return response;
+    return res;
   }
 
   async signin(email: string, password: string) {
