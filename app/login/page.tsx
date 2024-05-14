@@ -52,7 +52,7 @@ export default function LoginPage() {
           <span>
             <ChatBubbleOvalLeftEllipsisIcon className="h-6" />
           </span>
-          <span>Sign up with SMS</span>
+          <span>Sign In with SMS</span>
         </Link>
       </div>
     </section>
