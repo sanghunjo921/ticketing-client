@@ -17,12 +17,12 @@ class UserService {
       });
 
     if (res) {
-      // localStorage.setItem(userDataKey, JSON.stringify(response));
-      // const cookie = res.headers["set-cookie"] as string[];
-      const cookie = cookies();
-      console.log({ cookie: cookie.getAll() });
+      const cookie = res.headers["set-cookie"] as string[];
+      const userId = res.data.userId;
+      // const cookie = cookies();
+      return { cookie: cookie, userId: userId };
     }
-    return res;
+    return { cookie: [], userId: null };
   }
 
   async signin(email: string, password: string) {

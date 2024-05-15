@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { z } from "zod";
+import { getIronSession } from "iron-session";
 import { userService } from "../components/users/user.service";
 
 export interface SignUpActionState {
@@ -80,9 +81,23 @@ export const signupAction = async (
     return result.error?.flatten() || ["Unknown error"];
   }
 
-  await userService.signup(email, password, confirmPassword);
-  //   const cookie = cookies();
-  //   console.log({ cookie: cookie.getAll() });
+  const { cookie, userId } = await userService.signup(
+    email,
+    password,
+    confirmPassword
+  );
+  const cookieSession = await getIronSession(cookies(), {
+    cookieName: "TicketCookie",
+    password:
+      process.env.COOKIE_SECRET ||
+      "1234asgadgfasdgsafasgadsagasgdasgsagasdgasdgasdgfasdgadsgasgasdgsdagasdgasgasgasdagasgadsg",
+  });
+
+  console.log({ userId });
+  //@ts-ignore
+  cookieSession.id = cookie[0];
+  await cookieSession.save();
+  console.log({ cookieSession, cookies: cookies().getAll() });
 
   return {
     formErrors: [],
