@@ -19,10 +19,10 @@ class UserService {
     if (res) {
       const cookie = res.headers["set-cookie"] as string[];
       const userId = res.data.userId;
-      // const cookie = cookies();
-      return { cookie: cookie, userId: userId };
+      // const cookie = cookies().getAll();
+      return { cookie: cookie };
     }
-    return { cookie: [], userId: null };
+    return { cookie: [] };
   }
 
   async signin(email: string, password: string) {

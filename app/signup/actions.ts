@@ -63,7 +63,6 @@ export const signupAction = async (
   });
 
   await new Promise((resolve) => setTimeout(resolve, 3000));
-  console.log({ submittedData }, submittedData.get("email"));
 
   const email = submittedData.get("email")?.toString();
   const password = submittedData.get("password")?.toString();
@@ -75,17 +74,11 @@ export const signupAction = async (
     confirmPassword,
   });
 
-  console.log(result.error);
-
   if (!result.success) {
     return result.error?.flatten() || ["Unknown error"];
   }
 
-  const { cookie, userId } = await userService.signup(
-    email,
-    password,
-    confirmPassword
-  );
+  const { cookie } = await userService.signup(email, password, confirmPassword);
   const cookieSession = await getIronSession(cookies(), {
     cookieName: "TicketCookie",
     password:
@@ -93,11 +86,12 @@ export const signupAction = async (
       "1234asgadgfasdgsafasgadsagasgdasgsagasdgasdgasdgfasdgadsgasgasdgsdagasdgasgasgasdagasgadsg",
   });
 
-  console.log({ userId });
+  console.log({ cookie111: cookie });
+
   //@ts-ignore
   cookieSession.id = cookie[0];
   await cookieSession.save();
-  console.log({ cookieSession, cookies: cookies().getAll() });
+  console.log({ cookies: cookies().getAll() });
 
   return {
     formErrors: [],
