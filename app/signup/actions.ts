@@ -79,19 +79,19 @@ export const signupAction = async (
   }
 
   const { cookie } = await userService.signup(email, password, confirmPassword);
-  const cookieSession = await getIronSession(cookies(), {
-    cookieName: "TicketCookie",
-    password:
-      process.env.COOKIE_SECRET ||
-      "1234asgadgfasdgsafasgadsagasgdasgsagasdgasdgasdgfasdgadsgasgasdgsdagasdgasgasgasdagasgadsg",
-  });
+  //   const cookieSession = await getIronSession(cookies(), {
+  //     cookieName: "TicketCookie",
+  //     password:
+  //       process.env.COOKIE_SECRET ||
+  //       "1234asgadgfasdgsafasgadsagasgdasgsagasdgasdgasdgfasdgadsgasgasdgsdagasdgasgasgasdagasgadsg",
+  //   });
 
-  console.log({ cookie111: cookie });
+  //   console.log({ cookie111: cookie });
 
-  //@ts-ignore
-  cookieSession.id = cookie[0];
-  await cookieSession.save();
-  console.log({ cookies: cookies().getAll() });
+  //   //@ts-ignore
+  //   cookieSession.id = cookie[0];
+  //   await cookieSession.save();
+  //   console.log({ cookies: cookies().getAll() });
 
   return {
     formErrors: [],

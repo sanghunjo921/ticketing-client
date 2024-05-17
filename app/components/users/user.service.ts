@@ -17,9 +17,9 @@ class UserService {
       });
 
     if (res) {
-      const cookie = res.headers["set-cookie"] as string[];
+      const cookie = res.headers["set-cookie"] as string[]; // access, refresh, userid
       const userId = res.data.userId;
-      // const cookie = cookies().getAll();
+
       return { cookie: cookie };
     }
     return { cookie: [] };
@@ -51,6 +51,10 @@ class UserService {
     );
 
     setuserData(userData);
+  }
+
+  cookieParsing(cookie: stirng): string[] {
+    return st;
   }
 }
 
