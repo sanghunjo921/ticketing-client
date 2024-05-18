@@ -1,12 +1,10 @@
-// "use client";
+"use client";
 
-import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useFormState } from "react-dom";
 import ButtonComponent from "../components/input-components/button-components";
 import InputComponent from "../components/input-components/input-components";
-import { userService } from "../components/users/user.service";
+import { signinAction } from "./actions";
 
 interface UserData {
   accessToken: string;
@@ -14,11 +12,8 @@ interface UserData {
 }
 
 export default function LoginPage() {
-  const onSubmit = async (formData: FormData) => {
-    "use server";
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log({ formData }, formData.get("email"));
-  };
+  const [state, onSubmit] = useFormState(signinAction, null);
+  console.log({ state });
 
   return (
     <section className="flex flex-col gap-10 px-6 py-9">
@@ -44,17 +39,6 @@ export default function LoginPage() {
         <ButtonComponent text="Login" />
       </form>
       <div className="w-full h-px bg-neutral-400" />
-      <div>
-        <Link
-          href=""
-          className="general-btn flex h-10 items-center justify-center gap-2"
-        >
-          <span>
-            <ChatBubbleOvalLeftEllipsisIcon className="h-6" />
-          </span>
-          <span>Sign In with SMS</span>
-        </Link>
-      </div>
     </section>
   );
 }

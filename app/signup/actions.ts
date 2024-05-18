@@ -4,6 +4,9 @@ import { cookies } from "next/headers";
 import { z } from "zod";
 import { getIronSession } from "iron-session";
 import { userService } from "../components/users/user.service";
+import dbClient from "@/lib/db";
+import getOurSession from "@/lib/cookie";
+import { redirect } from "next/navigation";
 
 export interface SignUpActionState {
   errors: [];
@@ -48,6 +51,20 @@ const formSchema = z
       .regex(passwordRegex, "Invalid Password"),
     confirmPassword: z.string().min(6),
   })
+  .superRefine(async ({ email }, ctx) => {
+    const user = await dbClient.user.findUnique({
+      where: { email },
+      select: { id: true },
+    });
+    if (user) {
+      ctx.addIssue({
+        code: "custom",
+        message: "User already eixts",
+        path: ["email"],
+        fatal: true,
+      });
+    }
+  })
   .refine(checkPasswordMatched, {
     message: "Password not matched",
     path: ["confirmPassword"],
@@ -68,7 +85,7 @@ export const signupAction = async (
   const password = submittedData.get("password")?.toString();
   const confirmPassword = submittedData.get("confirmPassword")?.toString();
 
-  const result = formSchema.safeParse({
+  const result = await formSchema.safeParseAsync({
     email,
     password,
     confirmPassword,
@@ -78,20 +95,18 @@ export const signupAction = async (
     return result.error?.flatten() || ["Unknown error"];
   }
 
-  const { cookie } = await userService.signup(email, password, confirmPassword);
-  //   const cookieSession = await getIronSession(cookies(), {
-  //     cookieName: "TicketCookie",
-  //     password:
-  //       process.env.COOKIE_SECRET ||
-  //       "1234asgadgfasdgsafasgadsagasgdasgsagasdgasdgasdgfasdgadsgasgasdgsdagasdgasgasgasdagasgadsg",
-  //   });
+  //   const hashedPassword = await bcrypt.hash(result.data.password, 10);
 
-  //   console.log({ cookie111: cookie });
+  const cookie = await userService.signup(email, password, confirmPassword);
+  const cookieSession = await getOurSession();
 
-  //   //@ts-ignore
-  //   cookieSession.id = cookie[0];
-  //   await cookieSession.save();
-  //   console.log({ cookies: cookies().getAll() });
+  //@ts-ignore
+  cookieSession.id = cookie.userId;
+  await cookieSession.save();
+
+  console.log({ cookies: cookies().getAll() });
+
+  redirect("/tickets");
 
   return {
     formErrors: [],

@@ -1,6 +1,9 @@
 import Link from "@/node_modules/next/link";
 import "./global.css";
 import { Inter } from "next/font/google";
+import { userService } from "./components/users/user.service";
+import logOut from "./components/header/actions";
+import Header from "./components/header/header";
 
 export const metadata = {
   title: "Next.js",
@@ -19,14 +22,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} bg-black dark:bg-neutral-800  text-white max-w-screen-sm mx-auto`}
       >
-        <header>
-          <nav className="ml-10 mt-5 flex gap-10">
-            <Link href="/">Home</Link>
-            <Link href="/tickets">Tickets</Link>
-            <Link href="/login">SignIn</Link>
-            <Link href="/signup">SignUp</Link>
-          </nav>
-        </header>
+        <Header />
         {children}
       </body>
     </html>
