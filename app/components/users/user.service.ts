@@ -1,5 +1,5 @@
+import { cookieParsing } from "@/lib/cookie";
 import axios from "axios";
-import { cookies } from "next/headers";
 
 const userDataKey = "userData";
 
@@ -17,31 +17,29 @@ class UserService {
       });
 
     if (res) {
-      const cookie = res.headers["set-cookie"] as string[]; // access, refresh, userid
-      const userId = res.data.userId;
+      const cookie = cookieParsing(res.headers["set-cookie"] as string[]); // access, refresh, userid
 
-      return { cookie: cookie };
+      return cookie;
     }
-    return { cookie: [] };
+    return {};
   }
 
   async signin(email: string, password: string) {
-    const response = await axios
+    const res = await axios
       .post(`http://localhost/signin/`, {
         email: email,
         password: password,
       })
-      .then((user) => {
-        return user.data;
-      })
+      .then((res) => res)
       .catch((error) => {
         console.log("Error retrieving user", error);
       });
-    if (response) {
-      localStorage.setItem(userDataKey, JSON.stringify(response));
+    if (res) {
+      const cookie = cookieParsing(res.headers["set-cookie"] as string[]);
+      return cookie;
     }
 
-    return response;
+    return {};
   }
 
   checkSignIn(setuserData: any) {
@@ -51,10 +49,6 @@ class UserService {
     );
 
     setuserData(userData);
-  }
-
-  cookieParsing(cookie: stirng): string[] {
-    return st;
   }
 }
 
