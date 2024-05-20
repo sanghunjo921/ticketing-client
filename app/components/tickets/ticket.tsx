@@ -13,7 +13,7 @@ export default function Ticket(prop: any) {
             />
           ) : (
             <img
-              src="http://localhost/images/default.png"
+              src="https://mega-traffic-tickets.s3.ap-northeast-2.amazonaws.com/default.png"
               className="w-full"
               style={{ height: "300px" }}
             />
