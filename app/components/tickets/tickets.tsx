@@ -3,7 +3,7 @@
 import useInViewPort from "@/app/customHook/useInViewPort";
 import { useEffect, useRef, useState } from "react";
 import { userService } from "../users/user.service";
-import Ticket from "./ticket";
+import Ticket, { TicketProps } from "./ticket";
 import { ticketService } from "./ticket.service";
 
 export default function Tickets() {
@@ -74,7 +74,7 @@ export default function Tickets() {
         </form>
         <div ref={ticketListRef} className="grid grid-cols-2 gap-4 ">
           {targetList.map((ticket) => (
-            <Ticket ticket={ticket} key={ticket.id} />
+            <Ticket {...ticket} key={ticket.id} />
           ))}
           <button ref={ticketPageRef}>test</button>
         </div>
