@@ -37,7 +37,6 @@ export default function TicketSearchBar({
           setSearchTerm(e.target.value);
         }}
       />
-      <div className="font-bold text-2xl mt-10">All Tickets</div>
     </form>
   );
 }
