@@ -20,6 +20,7 @@ class TicketService {
         `http://localhost/ticket/search/filtered?page=${page}&searchTerm=${searchTerm}`
       )
       .then((tickets) => {
+        console.log({ tickets });
         return tickets.data;
       })
       .catch((error) => {
