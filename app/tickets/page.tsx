@@ -54,7 +54,14 @@ export default function TicketsPage() {
         setIsFilteredView={setIsFilteredView}
         setFilteredTickets={setFilteredTickets}
       />
+      <div className="font-bold text-2xl mt-10">Movies</div>
       <Carousel tickets={targetList} />
+      <div className="font-bold text-2xl mt-10">Concerts</div>
+      <Carousel tickets={targetList} />
+      <div className="font-bold text-2xl mt-10">Sports</div>
+      <Carousel tickets={targetList} />
+
+      <div className="font-bold text-2xl mt-10">All Tickets</div>
       <Tickets
         tickets={targetList}
         ticketListRef={ticketListRef}
