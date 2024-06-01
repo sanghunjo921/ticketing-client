@@ -20,3 +20,7 @@
     @apply w-full bg-orange-500 text-white rounded-md hover:bg-orange-400;
   }
 }
+
+div {
+  transition: linear 2s;
+}
