@@ -22,7 +22,7 @@ export default function Header() {
 
   return (
     <header>
-      <nav className="ml-10 mt-5 flex gap-10">
+      <nav className="fixed ml-10 mt-5 z-50 flex gap-10  bg-black">
         <Link href="/">Home</Link>
         <Link href="/tickets">Tickets</Link>
         {user.email ? (
