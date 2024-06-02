@@ -17,7 +17,7 @@ export default function TicketSearchBar({
 }: SearchtermProps) {
   return (
     <form
-      className="flex flex-col items-center justify-between ml-10 mt-10"
+      className="fixed top-10 left-0 right-0 z-50 flex flex-col items-center justify-between  p-4 shadow-md"
       onSubmit={(e) => {
         e.preventDefault();
         if (searchTerm.trim() !== "") {
