@@ -54,19 +54,21 @@ export default function TicketsPage() {
         setIsFilteredView={setIsFilteredView}
         setFilteredTickets={setFilteredTickets}
       />
-      <div className="font-bold text-2xl mt-10">Movies</div>
-      <Carousel tickets={targetList} />
-      <div className="font-bold text-2xl mt-10">Concerts</div>
-      <Carousel tickets={targetList} />
-      <div className="font-bold text-2xl mt-10">Sports</div>
-      <Carousel tickets={targetList} />
+      <div className="relative mt-40 overflow-hidden">
+        <div className="font-bold text-2xl">Movies</div>
+        <Carousel tickets={targetList} />
+        <div className="font-bold text-2xl ">Concerts</div>
+        <Carousel tickets={targetList} />
+        <div className="font-bold text-2xl ">Sports</div>
+        <Carousel tickets={targetList} />
 
-      <div className="font-bold text-2xl mt-10">All Tickets</div>
-      <Tickets
-        tickets={targetList}
-        ticketListRef={ticketListRef}
-        ticketPageRef={ticketPageRef}
-      />
+        <div className="font-bold text-2xl ">All Tickets</div>
+        <Tickets
+          tickets={targetList}
+          ticketListRef={ticketListRef}
+          ticketPageRef={ticketPageRef}
+        />
+      </div>
     </main>
   );
 }

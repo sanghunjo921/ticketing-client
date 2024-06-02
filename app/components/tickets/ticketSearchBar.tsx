@@ -17,7 +17,8 @@ export default function TicketSearchBar({
 }: SearchtermProps) {
   return (
     <form
-      className="fixed top-10 left-0 right-0 z-50 flex flex-col items-center justify-between  p-4 shadow-md"
+      className="sticky top-20 left-0 right-0 z-50 flex flex-col items-center justify-between bg-black  p-4 shadow-md"
+      style={{ height: "64px" }}
       onSubmit={(e) => {
         e.preventDefault();
         if (searchTerm.trim() !== "") {
