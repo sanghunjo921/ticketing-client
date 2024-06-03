@@ -21,8 +21,8 @@ export default function Header() {
   console.log({ user });
 
   return (
-    <header>
-      <nav className="fixed ml-10 mt-5 z-50 flex gap-10  bg-black">
+    <header className="fixed w-full z-50 bg-black">
+      <nav className="ml-10 mt-5  flex gap-10 ">
         <Link href="/">Home</Link>
         <Link href="/tickets">Tickets</Link>
         {user.email ? (

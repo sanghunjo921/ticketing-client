@@ -46,7 +46,7 @@ export default function TicketsPage() {
   console.log({ targetList });
 
   return (
-    <main>
+    <main className="top-50">
       <TicketSearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
