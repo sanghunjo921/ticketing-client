@@ -1,11 +1,11 @@
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http//localhost:80/graphql",
+  uri: "http//localhost:80/",
   cache: new InMemoryCache(),
 });
 
-const GET_POPULAR_TICKETS_BY_CATEGORIES = gql`
+export const GET_POPULAR_TICKETS_BY_CATEGORIES = gql`
   query GetPopularTicketsByCategories {
     getPopularTicketsByCategories(input: { categories: [SPORTS, CONCERTS] }) {
       ok
@@ -21,14 +21,3 @@ const GET_POPULAR_TICKETS_BY_CATEGORIES = gql`
 `;
 
 export default client;
-
-client
-  .query({
-    query: GET_POPULAR_TICKETS_BY_CATEGORIES,
-  })
-  .then((response) => {
-    console.log({ graphql: response.data });
-  })
-  .catch((error) => {
-    console.error(error);
-  });

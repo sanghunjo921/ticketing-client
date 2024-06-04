@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Carousel from "../components/carousel";
+import client, {
+  GET_POPULAR_TICKETS_BY_CATEGORIES,
+} from "../components/tickets/ticket.graphql.service";
 import { ticketService } from "../components/tickets/ticket.service";
 import Tickets from "../components/tickets/tickets";
 import TicketSearchBar from "../components/tickets/ticketSearchBar";
@@ -42,8 +45,16 @@ export default function TicketsPage() {
   }, [inViewPort, isFilteredView]);
 
   const targetList = !isFilteredView ? tickets : filteredTickets;
-
-  console.log({ targetList });
+  const categoryTickets = client
+    .query({
+      query: GET_POPULAR_TICKETS_BY_CATEGORIES,
+    })
+    .then((response) => {
+      console.log({ graphql: response.data });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
   return (
     <main className="top-50">
