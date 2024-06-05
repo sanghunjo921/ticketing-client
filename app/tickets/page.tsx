@@ -2,13 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import Carousel from "../components/carousel";
-import client, {
-  GET_POPULAR_TICKETS_BY_CATEGORIES,
-} from "../components/tickets/ticket.graphql.service";
 import { ticketService } from "../components/tickets/ticket.service";
 import Tickets from "../components/tickets/tickets";
 import TicketSearchBar from "../components/tickets/ticketSearchBar";
 import useInViewPort from "../customHook/useInViewPort";
+import { categoryTickets } from "../components/tickets/ticket.graphql.service";
+import { TicketProps } from "../components/tickets/ticket";
+
+interface CategoryTicketState {
+  movies: TicketProps[];
+  sports: TicketProps[];
+  concerts: TicketProps[];
+}
 
 export default function TicketsPage() {
   const ticketListRef = useRef<any>(null);
@@ -22,6 +27,11 @@ export default function TicketsPage() {
   const [tickets, setTickets] = useState<any[]>([]);
   const [filteredTickets, setFilteredTickets] = useState<any[]>([]);
   const [page, setPages] = useState(1);
+  const [categoryTicket, setCategoryTickets] = useState<CategoryTicketState>({
+    movies: [],
+    concerts: [],
+    sports: [],
+  });
 
   useEffect(() => {
     console.log("start", page, inViewPort);
@@ -45,16 +55,21 @@ export default function TicketsPage() {
   }, [inViewPort, isFilteredView]);
 
   const targetList = !isFilteredView ? tickets : filteredTickets;
-  const categoryTickets = client
-    .query({
-      query: GET_POPULAR_TICKETS_BY_CATEGORIES,
-    })
-    .then((response) => {
-      console.log({ graphql: response.data });
-    })
-    .catch((error) => {
-      console.error(error);
+
+  useEffect(() => {
+    categoryTickets().then((res) => {
+      console.log({ d: res.data.getPopularTicketsByCategories });
+      const { moviesTicket, concertsTicket, sportsTicket } =
+        res.data.getPopularTicketsByCategories;
+      setCategoryTickets({
+        movies: moviesTicket,
+        sports: sportsTicket,
+        concerts: concertsTicket,
+      });
     });
+  }, []);
+
+  console.log({ categoryTicket });
 
   return (
     <main className="top-50">
@@ -66,12 +81,24 @@ export default function TicketsPage() {
         setFilteredTickets={setFilteredTickets}
       />
       <div className="relative mt-40 overflow-hidden">
-        <div className="font-bold text-2xl">Movies</div>
-        <Carousel tickets={targetList} />
-        <div className="font-bold text-2xl ">Concerts</div>
-        <Carousel tickets={targetList} />
-        <div className="font-bold text-2xl ">Sports</div>
-        <Carousel tickets={targetList} />
+        {categoryTicket.movies.length > 0 && (
+          <>
+            <div className="font-bold text-2xl ">Movies</div>
+            <Carousel tickets={categoryTicket.movies} title="movie" />{" "}
+          </>
+        )}
+        {categoryTicket.concerts.length > 0 && (
+          <>
+            <div className="font-bold text-2xl ">Concerts</div>
+            <Carousel tickets={categoryTicket.concerts} title="concert" />{" "}
+          </>
+        )}
+        {categoryTicket.sports.length > 0 && (
+          <>
+            <div className="font-bold text-2xl ">Sports</div>
+            <Carousel tickets={categoryTicket.sports} title="sport" />{" "}
+          </>
+        )}
 
         <div className="font-bold text-2xl ">All Tickets</div>
         <Tickets

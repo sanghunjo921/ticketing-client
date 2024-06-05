@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import { userService } from "./components/users/user.service";
 import logOut from "./components/header/actions";
 import Header from "./components/header/header";
+import { ApolloProvider } from "@apollo/client";
+import client from "./components/tickets/ticket.graphql.service";
 
 export const metadata = {
   title: "Next.js",
@@ -23,6 +25,7 @@ export default function RootLayout({
         className={`${inter.className} bg-black dark:bg-neutral-800  text-white max-w-screen-sm mx-auto`}
       >
         <Header />
+        {/* <ApolloProvider client={client}></ApolloProvider> */}
         {children}
       </body>
     </html>

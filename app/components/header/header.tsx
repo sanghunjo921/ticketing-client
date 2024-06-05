@@ -21,7 +21,7 @@ export default function Header() {
   console.log({ user });
 
   return (
-    <header className="fixed w-full z-50 bg-black">
+    <header className="fixed w-full z-50 bg-black top-0">
       <nav className="ml-10 mt-5  flex gap-10 ">
         <Link href="/">Home</Link>
         <Link href="/tickets">Tickets</Link>
