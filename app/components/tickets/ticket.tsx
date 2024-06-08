@@ -1,5 +1,9 @@
+"use client";
+import getOurSession from "@/lib/cookie";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getSession } from "../users/session";
 
 export interface TicketProps {
   id: number;
@@ -8,6 +12,7 @@ export interface TicketProps {
   description: string;
   price: number;
   remaining_number: number;
+  userId: string | number;
 }
 
 export default function Ticket({
@@ -17,10 +22,16 @@ export default function Ticket({
   description,
   price,
   remaining_number,
+  userId,
 }: TicketProps) {
   const imageSrc = imagePath
     ? `http://localhost/${imagePath}`
     : "https://mega-traffic-tickets.s3.ap-northeast-2.amazonaws.com/default.png";
+
+  useEffect(() => {
+    getSession().then((cookie) => setUserId(cookie.id ?? ""));
+  });
+
   return (
     <div className="bg-white shadow-lg p-5 border-2 m-10 rounded-lg">
       <div className="">
@@ -43,11 +54,13 @@ export default function Ticket({
       </div>
       <div className="flex justify-between">
         <span className="text-2xl mt-5 font-bold">KRW {price}</span>
-        <Link href={`/tickets/${id}`}>
-          <button className="ml-auto mt-auto border border-blue-500 rounded-2xl text-blue-500 py-2.5 px-1.5">
-            Book Now
-          </button>
-        </Link>
+        {userId && (
+          <Link href={`/tickets/${id}`}>
+            <button className="ml-auto mt-auto border border-blue-500 rounded-2xl text-blue-500 py-2.5 px-1.5">
+              Book Now
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

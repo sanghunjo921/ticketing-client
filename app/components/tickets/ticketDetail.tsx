@@ -2,12 +2,15 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ReservationForm } from "../reservationForm";
+import { getSession } from "../users/session";
 import { ticketService } from "./ticket.service";
 
 export default function TicketDetail(prop: any) {
   const [ticket, setTicket] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [userId, setuserId] = useState("");
+  const [userId, setuserId] = useState<string | number>();
+  const [isReserve, setReserve] = useState<boolean>(false);
 
   useEffect(() => {
     ticketService.getTicket(prop.id).then((ticket) => {
@@ -19,6 +22,7 @@ export default function TicketDetail(prop: any) {
     if (storedUrl) {
       storedUrl = JSON.parse(storedUrl);
     }
+    getSession().then((cookie) => setuserId(cookie.id ?? ""));
   }, []);
 
   return (
@@ -45,16 +49,27 @@ export default function TicketDetail(prop: any) {
               )}
             </span>
             <span className="mb-5 ml-5">{ticket.description}</span>
+            <span>잔여티켓 : {ticket.remaining_number}</span>
           </div>
           <div className="flex flex-col items-center border-2 rounded-md w-1/3">
             <div className="mt-5"> KRW {ticket.price}</div>
             <div className="flex-grow"></div>
-            <Link
-              href={`/tickets/`}
-              className="border-2 rounded-md mb-5 w-1/2 flex items-center justify-center"
-            >
-              <button>예매하기</button>
-            </Link>
+            {isReserve ? (
+              <ReservationForm setReserve={setReserve} userId={userId}>
+                <button className="border-2 rounded-md mb-5 w-1/2 flex items-center justify-center">
+                  예매하기
+                </button>
+              </ReservationForm>
+            ) : (
+              <button
+                className="border-2 rounded-md mb-5 w-1/2 flex items-center justify-center"
+                onClick={() => {
+                  setReserve(true);
+                }}
+              >
+                예매하기
+              </button>
+            )}
           </div>
         </div>
       )}
