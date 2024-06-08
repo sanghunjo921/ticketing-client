@@ -15,15 +15,19 @@ export const GET_POPULAR_TICKETS_BY_CATEGORIES = gql`
         id
         title
         description
+        price
       }
       concertsTicket {
         id
         title
+        description
+        price
       }
       moviesTicket {
         id
         title
         description
+        price
       }
     }
   }

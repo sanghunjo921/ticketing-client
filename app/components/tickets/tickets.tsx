@@ -1,6 +1,7 @@
 "use client";
 
-import { RefObject, useRef } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
+import { getSession } from "../users/session";
 import Ticket, { TicketProps } from "./ticket";
 
 export interface TicketsProps {
@@ -18,8 +19,13 @@ export default function Tickets({
   ticketPageRef,
   containerRef,
 }: TicketsProps) {
+  const [userId, setUserId] = useState<string | number>("");
   const gridContainer = "grid grid-cols-2 gap-4";
   const carouselContainer = "relative flex ";
+
+  useEffect(() => {
+    getSession().then((cookie) => setUserId(cookie.id ?? ""));
+  });
 
   return (
     <>
@@ -29,7 +35,7 @@ export default function Tickets({
           className={isCarousel ? carouselContainer : gridContainer}
         >
           {tickets?.map((ticket) => (
-            <Ticket {...ticket} key={ticket.id} />
+            <Ticket {...ticket} key={ticket.id} userId={userId} />
           ))}
           <div ref={ticketPageRef}></div>
         </div>
