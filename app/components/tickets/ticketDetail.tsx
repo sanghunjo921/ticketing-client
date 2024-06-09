@@ -1,6 +1,4 @@
 "use client";
-
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ReservationForm } from "../reservationForm";
 import { getSession } from "../users/session";

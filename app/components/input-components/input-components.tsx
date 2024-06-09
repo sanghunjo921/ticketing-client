@@ -1,4 +1,4 @@
-import { Dispatch, InputHTMLAttributes, SetStateAction } from "react";
+import { InputHTMLAttributes } from "react";
 
 interface InputProps {
   name: string;

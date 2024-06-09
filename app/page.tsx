@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ButtonComponent from "./components/input-components/button-components";
 
 export default function Page() {
   return (

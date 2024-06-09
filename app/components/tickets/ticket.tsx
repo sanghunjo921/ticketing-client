@@ -1,9 +1,6 @@
 "use client";
-import getOurSession from "@/lib/cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getSession } from "../users/session";
 
 export interface TicketProps {
   id: number;
@@ -27,10 +24,6 @@ export default function Ticket({
   const imageSrc = imagePath
     ? `http://localhost/${imagePath}`
     : "https://mega-traffic-tickets.s3.ap-northeast-2.amazonaws.com/default.png";
-
-  useEffect(() => {
-    getSession().then((cookie) => setUserId(cookie.id ?? ""));
-  });
 
   return (
     <div className="bg-white shadow-lg p-5 border-2 m-10 rounded-lg">

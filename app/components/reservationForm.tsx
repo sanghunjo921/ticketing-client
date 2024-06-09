@@ -2,7 +2,6 @@
 import axios from "axios";
 import { useState } from "react";
 import InputCComponent from "./input-components/input-c-component";
-import InputComponent from "./input-components/input-components";
 
 export function ReservationForm({ children, setReserve, userId }: any) {
   const [error, setError] = useState<string[]>([]);

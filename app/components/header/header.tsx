@@ -4,7 +4,6 @@ import logOut from "@/app/components/header/actions";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import getUser from "../users/getUser";
-import { userService } from "../users/user.service";
 
 interface UserState {
   email?: string | null;
