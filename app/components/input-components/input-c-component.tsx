@@ -1,5 +1,3 @@
-import { Dispatch, InputHTMLAttributes, SetStateAction } from "react";
-
 interface InputProps {
   name: string;
   onChange: any;

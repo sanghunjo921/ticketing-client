@@ -2,7 +2,6 @@
 
 import { cookies } from "next/headers";
 import { z } from "zod";
-import { getIronSession } from "iron-session";
 import { userService } from "../components/users/user.service";
 import dbClient from "@/lib/db";
 import getOurSession from "@/lib/cookie";

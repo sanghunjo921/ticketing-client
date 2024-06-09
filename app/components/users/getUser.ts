@@ -1,9 +1,7 @@
 "use server";
 
 import getOurSession from "@/lib/cookie";
-import dbClient from "@/lib/db";
 import axios from "axios";
-import { notFound } from "next/navigation";
 
 export default async function getUser() {
   const session = await getOurSession();
